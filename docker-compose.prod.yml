@@ -1,0 +1,7 @@
+version: "3.3"
+
+services:
+  spring-test-backend:
+    build:
+      context: "."
+      dockerfile: "Dockerfile.prod"

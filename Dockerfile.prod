@@ -1,0 +1,18 @@
+FROM openjdk:8-jdk-alpine as builder
+RUN apk add --no-cache wget unzip bash
+ARG USER_HOME_DIR="/root"
+ARG GRADLE_VERSION="6.6.1"
+RUN mkdir -p /opt/gradle && \
+wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip && unzip -d /opt/gradle gradle-${GRADLE_VERSION}-bin.zip
+ENV GRADLE_HOME /opt/gradle/gradle-${GRADLE_VERSION}
+ENV PATH="${GRADLE_HOME}/bin:${PATH}"
+
+RUN mkdir -p /app
+WORKDIR /app
+COPY . /app
+RUN gradle build
+#### Stage 2: A minimal docker image with command to run the app
+FROM openjdk:8-jre-alpine
+COPY --from=builder /app/build/libs /app/build/libs
+
+CMD ["java","-jar","app/build/libs/artifact.jar"]
