@@ -1,0 +1,32 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
+}
+
+group = 'org.example'
+version = ''
+sourceCompatibility = '8'
+
+jar{
+    archivesBaseName = 'artifact'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            'commons-codec:commons-codec:1.15'
+    )
+    implementation ('org.apache.commons:commons-lang3:3.7',
+        'org.springframework.boot:spring-boot-starter-web'
+    )
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+}
