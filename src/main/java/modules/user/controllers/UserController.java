@@ -5,6 +5,7 @@ import modules.user.models.UserDTO;
 import modules.user.usecases.CreateUser;
 import modules.user.usecases.FindUser;
 import modules.user.usecases.LoginUser;
+import modules.user.util.exceptions.domain.UserNotFoundException;
 
 import java.util.List;
 import java.util.stream.Collectors;
