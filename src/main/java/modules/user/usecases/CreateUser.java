@@ -4,7 +4,7 @@ import modules.user.models.User;
 import modules.user.ports.repository.IUserRepository;
 import modules.user.ports.usecase.IIdGenerator;
 import modules.user.ports.usecase.IPasswordEncoder;
-import modules.user.util.exceptions.UserAlreadyExistsException;
+import modules.user.util.exceptions.domain.UserAlreadyExistsException;
 import modules.user.util.validators.UserValidator;
 
 public final class CreateUser {

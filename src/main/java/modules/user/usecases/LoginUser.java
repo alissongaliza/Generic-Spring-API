@@ -3,7 +3,8 @@ package modules.user.usecases;
 import modules.user.models.User;
 import modules.user.ports.repository.IUserRepository;
 import modules.user.ports.usecase.IPasswordEncoder;
-import modules.user.util.exceptions.NotAllowedException;
+import modules.user.util.exceptions.domain.NotAllowedException;
+import modules.user.util.exceptions.domain.UserNotFoundException;
 
 public final class LoginUser {
 
@@ -16,9 +17,9 @@ public final class LoginUser {
 	}
 
 	public User login(final String email, final String password) {
-		User user = userRepository.findByEmail(email).orElseThrow(() -> new NotAllowedException("Not allowed"));
+		User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException(email));
 		String hashedPassword = passwordEncoder.encode(email + password);
-		if (!user.getPassword().equals(hashedPassword)) throw new NotAllowedException("Not allowed");
+		if (!user.getPassword().equals(hashedPassword)) throw new NotAllowedException();
 		return user;
 	}
 }

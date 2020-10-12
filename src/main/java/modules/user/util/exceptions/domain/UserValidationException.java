@@ -1,4 +1,4 @@
-package modules.user.util.exceptions;
+package modules.user.util.exceptions.domain;
 
 public class UserValidationException extends RuntimeException {
 	public UserValidationException(final String message) {
