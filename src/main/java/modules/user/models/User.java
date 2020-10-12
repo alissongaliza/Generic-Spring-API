@@ -1,19 +1,29 @@
 package modules.user.models;
 
-public class User {
 
-	private String id;
+import javax.persistence.*;
+import java.util.UUID;
+
+@Entity
+@Table(name = "user", schema = "public")
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private UUID id;
+	@Column(unique = true)
 	private String email;
 	private String password;
-	private String lastName;
-	private String firstName;
+	private String lastname;
+	private String firstname;
 
-	private User(final String id, final String email, final String password, final String lastName, final String firstName) {
-		this.id = id;
+	protected User() {}
+
+	private User(final String email, final String password, final String lastname, final String firstname) {
+//		this.id = id;
 		this.email = email;
 		this.password = password;
-		this.lastName = lastName;
-		this.firstName = firstName;
+		this.lastname = lastname;
+		this.firstname = firstname;
 	}
 
 	public static UserBuilder builder() {
@@ -21,18 +31,13 @@ public class User {
 	}
 
 	public static class UserBuilder {
-		private String id;
+		private UUID id;
 		private String email;
 		private String password;
 		private String lastName;
 		private String firstName;
 
 		UserBuilder() {
-		}
-
-		public UserBuilder id(final String id) {
-			this.id = id;
-			return this;
 		}
 
 		public UserBuilder email(final String email) {
@@ -56,11 +61,11 @@ public class User {
 		}
 
 		public User build() {
-			return new User(id, email, password, lastName, firstName);
+			return new User(email, password, lastName, firstName);
 		}
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
@@ -72,12 +77,12 @@ public class User {
 		return password;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFirstname() {
+		return firstname;
 	}
 
 	@Override
@@ -86,8 +91,8 @@ public class User {
 			"id='" + id + '\'' +
 			", email='" + email + '\'' +
 			", password='" + password + '\'' +
-			", lastName='" + lastName + '\'' +
-			", firstName='" + firstName + '\'' +
+			", lastName='" + lastname + '\'' +
+			", firstName='" + firstname + '\'' +
 			'}';
 	}
 }

@@ -1,17 +1,15 @@
 package modules.user.ports.repository;
 
 import modules.user.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface IUserRepository {
-
-    User create(User user);
-
-    Optional<User> findById(String id);
+@Repository
+public interface IUserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByEmail(String email);
-
-    List<User> findAllUsers();
 }

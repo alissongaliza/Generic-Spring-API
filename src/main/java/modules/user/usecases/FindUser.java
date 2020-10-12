@@ -5,6 +5,7 @@ import modules.user.ports.repository.IUserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public final class FindUser {
 
@@ -15,10 +16,10 @@ public final class FindUser {
 	}
 
 	public Optional<User> findById(final String id) {
-		return repository.findById(id);
+		return repository.findById((UUID.fromString(id)));
 	}
 
 	public List<User> findAllUsers() {
-		return repository.findAllUsers();
+		return repository.findAll();
 	}
 }

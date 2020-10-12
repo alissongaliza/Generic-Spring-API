@@ -58,11 +58,11 @@ public class UserDTO {
 
 	public static UserDTO toUserDTO(final User user) {
 		UserDTO userWeb = new UserDTO();
-		userWeb.setId(user.getId());
+		userWeb.setId(user.getId().toString());
 		userWeb.setEmail(user.getEmail());
 		// do not map password
-		userWeb.setLastName(user.getLastName());
-		userWeb.setFirstName(user.getFirstName());
+		userWeb.setLastName(user.getLastname());
+		userWeb.setFirstName(user.getFirstname());
 		return userWeb;
 	}
 }

@@ -2,23 +2,22 @@ package modules.user.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import modules.user.adapters.repository.InMemoryIUserRepository;
 import modules.user.adapters.usecase.Sha256IPasswordEncoder;
-import modules.user.adapters.usecase.UuidGeneratorI;
 import modules.user.controllers.UserController;
 import modules.user.ports.repository.IUserRepository;
 import modules.user.ports.usecase.IPasswordEncoder;
 import modules.user.usecases.CreateUser;
 import modules.user.usecases.FindUser;
 import modules.user.usecases.LoginUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
 public class SpringConfig {
-
-	private final IUserRepository userRepository = new InMemoryIUserRepository();
+	@Autowired
+	private IUserRepository userRepository;
 	private final IPasswordEncoder IPasswordEncoder = new Sha256IPasswordEncoder();
 
 	@Bean
@@ -27,9 +26,9 @@ public class SpringConfig {
 		objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 		return objectMapper;
 	}
-		@Bean
+	@Bean
 	public CreateUser createUser() {
-		return new CreateUser(userRepository, IPasswordEncoder, new UuidGeneratorI());
+		return new CreateUser(userRepository, IPasswordEncoder);
 	}
 	@Bean
 	public FindUser findUser() {
