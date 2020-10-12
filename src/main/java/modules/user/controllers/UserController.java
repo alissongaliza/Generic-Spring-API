@@ -31,7 +31,7 @@ public class UserController {
 	}
 
 	public UserDTO getUser(final String userId) {
-		return UserDTO.toUserDTO(findUser.findById(userId).orElseThrow(() -> new RuntimeException("user not found")));
+		return UserDTO.toUserDTO(findUser.findById(userId).orElseThrow(() -> new UserNotFoundException(userId)));
 	}
 
 	public List<UserDTO> allUsers() {
